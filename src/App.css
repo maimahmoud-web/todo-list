@@ -1,11 +1,85 @@
-.App {
+.Todo-Write {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2 {
+  margin: 0;
 }
+
+.task-container {
+  text-align:left;
+  margin-top: 50px;
+   margin-left: 40px; 
+}
+
+.task-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Todo {
+  text-align: center;
+  background-color:bisque;
+  height: 90px;
+  margin-left: 40px; 
+  margin-right: 40px; 
+  margin-top: 8px;
+  
+}
+
+.task-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 👈 controls distance between button & tasks */
+  margin-left: 30px; /* optional for positioning */
+}
+
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 8px;
+
+  margin: 10px 30px;
+}
+
+/* left side (checkbox + text) */
+.left {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* title */
+.task-title {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* date */
+.task-date {
+  font-size: 12px;
+  color: gray;
+}
+
+/* right side buttons */
+.right button {
+  background:gray;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
