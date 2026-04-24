@@ -3,33 +3,26 @@ import './App.css';
 import { useState } from "react";
 
 
-function Taskbtn({ tasks, setTasks, input, setInput }) {
+const flag=false;
+
+function Taskbtn({ openPopup }) {
   return (
     <div className='task-container'>
-      <button 
-        className='task-btn'
-        onClick={() => {
-          if (input.trim() === "") return; // prevent empty task
-          setTasks([...tasks, input]);
-          setInput("");
-        }}
-      >
+      <button className='task-btn' onClick={openPopup}>
         Add task
       </button>
     </div>
   );
 }
 
-function Todo(){
-  return(
-    <>
+function Todo({ tasks }) {
+  return (
     <div className='Todo'>
-      <Task task="me"
-      date="5:23 AM, 01/06/2022" />
+      {tasks.map((t, index) => (
+        <Task key={index} task={t.text} date={t.date} />
+      ))}
     </div>
-    
-    </>
-  )
+  );
 }
 
 function Task({task ,date}) {
@@ -58,10 +51,59 @@ function Task({task ,date}) {
   );
 }
 
+function TaskPanel({ addTask, closeForm }) {
+  const [taskName, setTaskName] = useState("");
+  const [taskDate, setTaskDate] = useState("");
+
+  return (
+    <div className="modal" onClick={closeForm}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        
+        <h1>Enter your task</h1>
+
+        <input
+          value={taskName}
+          onChange={(e) => setTaskName(e.target.value)}
+          placeholder="Task name"
+        />
+
+        <input
+          type="date"
+          value={taskDate}
+          onChange={(e) => setTaskDate(e.target.value)}
+        />
+
+        <div className="buttons">
+          <button
+            onClick={() => {
+              if (taskName.trim() === "") return;
+
+              addTask({
+                text: taskName,
+                date: taskDate,
+              });
+
+              closeForm();
+            }}
+          >
+            Save
+          </button>
+
+          <button onClick={closeForm}>Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+
+
 function App() {
 
 const [tasks, setTasks] = useState([]);
 const [input, setInput] = useState("");
+const [showPopup, setShowPopup] = useState(false);
 
   return (
     <>
@@ -69,20 +111,19 @@ const [input, setInput] = useState("");
         <h1>TODO LIST</h1>
       </div>
 
-      <input 
-      onChange={(e) => setInput(e.target.value)}
-      placeholder='enter your task'
-      />
+      
 
-<div className="task-section">
-     <Taskbtn 
-  tasks={tasks} 
-  setTasks={setTasks} 
-  input={input} 
-  setInput={setInput}
-/>
-      <Todo />
-</div>
+      <div className="task-section">
+        <Taskbtn openPopup={() => setShowPopup(true)} />
+
+        <Todo tasks={tasks} />
+        {showPopup && (
+      <TaskPanel
+    addTask={(newTask) => setTasks([...tasks, newTask])}
+    closeForm={() => setShowPopup(false)}
+  />
+)}
+      </div>
     </>
   );
 }
