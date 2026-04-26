@@ -1,6 +1,8 @@
 import react, { useState } from 'react';
+import { Todo } from './Todo';
+import { TodoAll } from './TodoAll';
 
-export const TodoForm =({addTodo})=>{
+export const TodoForm =({addTodo,task,createRipple,deleteTodo})=>{
 
     const [value,setValue]=useState("");
 
@@ -13,13 +15,16 @@ export const TodoForm =({addTodo})=>{
     }
 
     return(
-        <form className='TodoForm'  onSubmit={handleSubmit}> Todo List
+        
+        <form className='TodoForm'  onSubmit={handleSubmit}> 
         <input type="text" className='todo-input' value={value}
         placeholder='What is the task for the day ?' 
         onChange={(e)=>setValue(e.target.value)}
         />
-        <button type ="submit" className='todo-btn'>Add task</button>
-</form>
+        <button 
+            type="submit" className='todo-btn'>Add Task</button>
+        </form>
+
         
     )
 }

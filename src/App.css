@@ -1,15 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 * {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 body {
-  background: #8758ff;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background: linear-gradient(270deg,#81A6C6, #AACDDC, #263B6A);
+  background-size: 600% 600%;
+
+  animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .App {
@@ -23,10 +42,15 @@ h1 {
 }
 
 .TodoAll {
-  background: #1A1A40;
-  margin-top: 5rem;
+  background: rgba(28, 28, 60, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   padding: 2rem;
-  border-radius: 5px;
+  border-radius: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 25px;
 }
 
 .TodoForm {
@@ -37,7 +61,7 @@ h1 {
 .todo-input {
   outline: none;
   background: none;
-  border: 1px solid #8758ff;
+  border: 1px solid #81A6C6;
   padding: 0.5rem 1rem;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -50,7 +74,7 @@ h1 {
 }
 
 .todo-btn {
-  background: #8758ff;
+  background: #6984A9;
   color: #fff;
   border: none;
   padding: 0.55rem;
@@ -61,11 +85,22 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #8758ff;
+  background: #6984A9;
+  
+  backdrop-filter: blur(8px);
   color: #fff;
-  padding: 0.75rem 1rem;
+ padding: 0.75rem 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
+  
+}
+
+
+.Todo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 10px #7AAACE,
+              0 0 20px #7AAACE,
+              0 0 30px #7AAACE;
 }
 
 .fa-trash {
@@ -78,7 +113,7 @@ h1 {
 }
 
 .completed {
-  color: #c5aeff;
+  color: #263B6A;
   text-decoration: line-through;
   cursor: pointer;
 }
@@ -88,3 +123,74 @@ h1 {
   cursor: pointer;
 }
  
+.Todo p {
+  margin: 0;   /* remove extra space */
+}
+
+
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.deleting {
+  animation: shrinkFade 0.3s forwards;
+}
+
+@keyframes shrinkFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-btn span {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.5s linear;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.icon-btn {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
